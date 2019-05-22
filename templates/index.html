@@ -1,0 +1,557 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div>
+     <!--== Slider Area Start ==-->
+    <section id="slider-area">
+        <!--== slide Item One ==-->
+        <div class="single-slide-item overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="book-a-car">
+                            <form method="post">
+                                {% csrf_token %}
+                                <!--== Pick Up Location ==-->
+                                <!--div class="pickup-location book-item">
+                                    <h4>PICK-UP LOCATION:</h4>
+                                    <select class="custom-select">
+                                      <option selected>Select</option>
+                                      <option value="1">Chandigarh</option>
+                                      <option value="2">Mohali</option>
+                                      <option value="3">Shimla</option>
+                                      <option value="3">Haryana</option>
+                                    </select>
+                                </div-->
+                                <!--== Pick Up Location ==-->
+
+                                <!--== Pick Up Date ==-->
+
+<div class="col-auto">
+    <h4>PICK-UP DATE-TIME{{exp}}{{try}}</h4>
+    <label class="sr-only" for="inlineFormInputGroup"></label>
+    <div class="input-group mb-2">
+        <div class="input-group input-icon left" id="start_date">
+             <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+
+            </span>
+            <input type="text" class="form-control" name="start_date" id="cancel-s" value="{{ sd }}" placeholder="Enter Pick-up Date">
+
+
+
+        </div>
+        <span class="input-group-addon">
+                <i id ="close-s" class="fa fa-close"></i>
+
+            </span>
+    </div>
+</div>
+
+<div class="col-auto pt-4">
+    <h4>RETURN DATE-TIME</h4>
+    <label class="sr-only" for="inlineFormInputGroup"></label>
+    <div class="input-group mb-2">
+        <div class="input-group input-icon left" id="end_date">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </span>
+            <input type="text" class="form-control" name="end_date" id="cancel-e" value="{{ ed }}" placeholder="Return Date">
+
+        </div>
+        <span class="input-group-addon">
+                <i id ="close-e" class="fa fa-close"></i>
+
+            </span>
+    </div>
+</div>
+
+                                <!--== Car Choose ==>
+                                <div class="choose-car-type book-item">
+                                    <h4>CHOOSE CAR TYPE:</h4>
+                                    {% if ccd %}
+                                    <select class="custom-select">
+                                      <option selected>Select</option>
+                                        {% for i in ccd %}
+                                      <option value="{{ i.vehicle_id }}">{{ i.vehicle_category_name }}</option>
+                                     {% endfor %}
+                                    </select>
+                                    {% endif %}
+                                </div-->
+                                <!--== Car Choose ==-->
+<br/>
+                                <div class="book-button text-center ">
+                                    <input type="submit" value="Explore" style="border-radius: 25px" class="book-now-btn">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 text-right">
+                        <div class="display-table">
+                            <div class="display-table-cell">
+                                <div class="slider-right-text">
+                                    <h1>BOOK A CAR TODAY!</h1>
+                                    <p>FOR AS LOW AS Rs 1250 A DAY PLUS OFFERS <br> FOR OUR RETURNING CUSTOMERS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--== slide Item One ==-->
+    </section>
+    <!--== Slider Area End ==-->
+
+    <!--== Choose Car Area Start ==-->
+    <section id="choose-car" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center" id="slide">
+                        <h2>Choose your Car</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p></p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row" >
+                <!-- Choose Area Content Start -->
+                <div class="col-lg-12">
+                    <div class="choose-content-wrap">
+
+                        <!-- Choose Area Tab content -->
+                        <div class="tab-content" id="myTabContent">
+                            <!-- Popular Cars Tab Start -->
+                            <div class="tab-pane fade show active" id="popular_cars" role="tabpanel" aria-labelledby="home-tab">
+                                <!-- Popular Cars Content Wrapper Start -->
+                                <div class="popular-cars-wrap">
+                                    <!-- Filtering Menu -->
+                                    <div class="popucar-menu text-center">
+                                        <a href="#" data-filter="*" class="active">all</a>
+                                        {% if ccd %}
+                                        {% for i in ccd %}
+                                        <a href="#" data-filter=".{{ i.vehicle_category_name }}">{{ i.vehicle_category_name }}</a>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <!-- Filtering Menu End -->
+
+                                    {% if ud %}
+                                    <!-- PopularCars Tab Content Start -->
+                                    <div class="row popular-car-gird">
+                                    {% for i in ud %}
+                                        <!-- Single Popular Car Start -->
+                                        <div class="col-lg-4 col-md-6  {{ i.vehicle_id.vehicle_category_name }}">
+                                            <div class="single-popular-car">
+                                                <div class="p-car-thumbnails">
+                                                    <a class="car-hover" href="/media/{{ i.vehicle_image }}">
+                                                      <img src="media/{{ i.vehicle_image }}" width="1280px" height="800px" style="object-fit:fill" alt="JSOFT">
+                                                   </a>
+                                                </div>
+
+                                                <div class="p-car-content">
+                                                    <h3>
+                                                        <a href="/car-details/?id={{ i.vehicle_ref_id}}">{{ i.vehicle_name }}</a>
+                                                        <span class="price"><i class="fa fa-tag"></i> Rs {{ i.vehicle_price }}/hour</span>
+                                                    </h3>
+                                                    <h5>{{ i.vehicle_id.vehicle_category_name }}</h5>
+
+                                                    <div class="p-car-feature">
+                                                        <a>{{ i.vehicle_model }}</a>
+                                                        <a>{{ i.transmission }}</a>
+                                                        <a>{{ i.airbags }}</a>
+                                                        <a>{{ i.seats }}</a>
+                                                    </div>
+                                                    <p>  </p>
+                                                    {% if book and request.session.authenticate %}
+                                                    <div class="mt-4" >
+                                                    <a class="btn btn-outline-warning btn-sm " style="border-radius: 25px" href="{% url 'front_app:booking' %}?id={{ i.vehicle_ref_id }}&sd={{ sd }}&ed={{ ed }}">Book Now</a>
+                                                    </div>
+                                                    {% elif request.session.authenticate %}
+                                                    <br>
+                                                    <p style="color:red">Enter Date to Get Availability</p>
+                                                    {% elif book %}
+                                                    <br>
+                                                    <p style="color:red">Login to Book</p>
+                                                    {% else %}
+                                                    <br>
+                                                    <p style="color:red">Enter Date and Login to Book</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Popular Car End -->
+                                    {% endfor %}
+                                    {% endif %}
+                                    </div>
+                                    <!-- PopularCars Tab Content End -->
+                                </div>
+                                <!-- Popular Cars Content Wrapper End -->
+                            </div>
+                            <!-- Popular Cars Tab End -->
+                        </div>
+                        <!-- Choose Area Tab content -->
+                    </div>
+                </div>
+                <!-- Choose Area Content End -->
+            </div>
+        </div>
+    </section>
+    <!--== Choose Car Area End ==-->
+
+    <!--== Services Area Start ==-->
+    <section id="service-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Our Services</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p></p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+
+			<!-- Service Content Start -->
+			<div class="row">
+				<!-- Single Service Start -->
+				<div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-taxi"></i>
+						<h3>24x7 Service</h3>
+
+					</div>
+				</div>
+				<!-- Single Service End -->
+
+				<!-- Single Service Start -->
+				<div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-cog"></i>
+						<h3>Damage Insurance</h3>
+
+					</div>
+				</div>
+				<!-- Single Service End -->
+
+				<!-- Single Service Start -->
+				<div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-map-marker"></i>
+						<h3>Go Anywhere</h3>
+
+					</div>
+				</div>
+				<!-- Single Service End -->
+
+				<!-- Single Service Start -->
+				<div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-life-ring"></i>
+						<h3>No Hidden Charges</h3>
+
+					</div>
+				</div>
+				<!-- Single Service End -->
+
+				<!-- Single Service Start -->
+                <div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-phone"></i>
+						<h3>Road Side Assistance</h3>
+
+					</div>
+				</div>
+
+				<!-- Single Service End -->
+
+				<!-- Single Service Start -->
+				<div class="col-lg-4 text-center">
+					<div class="service-item">
+						<i class="fa fa-arrow-left"></i>
+						<h3>Easy Returns</h3>
+
+					</div>
+				</div>
+				<!-- Single Service End -->
+			</div>
+				<!-- Single Service End -->
+
+			</div>
+			<!-- Service Content End -->
+    </section>
+    <!--== Services Area End ==-->
+
+    <!--== Fun Fact Area Start ==-->
+    <section id="funfact-area" class="overlay section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11 col-md-12 m-auto">
+                    <div class="funfact-content-wrap">
+                        <div class="row">
+                            <!-- Single FunFact Start -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-funfact">
+                                    <div class="funfact-icon">
+                                        <i class="fa fa-smile-o"></i>
+                                    </div>
+                                    <div class="funfact-content">
+                                        <p><span class="counter">200</span>+</p>
+                                        <h4>HAPPY CLIENTS</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single FunFact End -->
+
+                            <!-- Single FunFact Start -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-funfact">
+                                    <div class="funfact-icon">
+                                        <i class="fa fa-car"></i>
+                                    </div>
+                                    <div class="funfact-content">
+                                        <p><span class="counter">150</span>+</p>
+                                        <h4>CARS IN STOCK</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single FunFact End -->
+
+                            <!-- Single FunFact Start -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-funfact">
+                                    <div class="funfact-icon">
+                                        <i class="fa fa-file"></i>
+                                    </div>
+                                    <div class="funfact-content">
+                                        <p><span class="counter">50</span>+</p>
+                                        <h4>Active Bookings</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single FunFact End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--== Fun Fact Area End ==-->
+
+    <!--== What We Do Area Start ==-->
+    <section id="what-do-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>How AdRENTure Works</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- Single We Do Start -->
+                <div class="col-lg-4 col-md-3">
+                    <div class="single-we-do we-do-bg-3">
+                        <div class="we-do-content">
+                            <div class="display-table">
+                                <div class="display-table-cell">
+                                    <h3>SELECT DURATION</h3>
+                                    <p>Select the Duration  to View Available Cars</p>
+                                    <a href="#">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single We Do End -->
+                <!-- Single We Do Start -->
+                <div class="col-lg-4 col-md-3">
+                    <div class="single-we-do we-do-bg-2">
+                        <div class="we-do-content">
+                            <div class="display-table">
+                                <div class="display-table-cell">
+                                    <h3>BOOK VEHICLE, PAYMENT</h3>
+                                    <p>Confirm Your booking and make Payments</p>
+                                    <a href="#">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single We Do End -->
+
+                <!-- Single We Do Start -->
+                <div class="col-lg-4 col-md-3">
+                    <div class="single-we-do we-do-bg-1">
+                        <div class="we-do-content">
+                            <div class="display-table">
+                                <div class="display-table-cell">
+                                    <h3>DOC. VERIFICATION</h3>
+                                    <p>Company Professional will verify the eligibility of customer for driving and after Confirmation hand over the Vehicle </p>
+                                    <a href="#">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single We Do End -->
+
+
+            </div>
+        </div>
+    </section>
+    <!--== What We Do Area End ==-->
+
+    <!--== Pricing Area Start ==-->
+    <section id="pricing-area" class="section-padding overlay">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Only quality for clients</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p></p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <!-- Pricing Table Conatent Start -->
+            <div class="row">
+
+                <!-- Single Pricing Table -->
+                <!--div class="col-lg-4 col-md-6 text-center">
+                    <div class="single-pricing-table">
+                        <h3>PREMIMUM</h3>
+                        <h2>RS  10000</h2>
+                        <h5>PER MONTH</h5>
+                        <h5>First 200 KMS</h5>
+                        <ul class="package-list">
+                            <li>FREE MAINTAINANCE</li>
+                            <li>ROAD SIDE ASSISTANCE</li>
+                            <li>INSURANCE INCLUDED</li>
+                            <li>FREE HOME DELIVERY</li>
+                            <li>2 HOURS RELAXED</li>
+                        </ul>
+                    </div>
+                </div-->
+                <!-- Single Pricing Table -->
+
+                <!-- Single Pricing Table -->
+                <div class="col-lg-6 col-md-6 text-center">
+                    <div class="single-pricing-table">
+                        <h3>Trial<small> (Coming Soon)</small></h3>
+                        <h2>Free</h2>
+                        <h5>First 10 KMS</h5>
+
+                        <ul class="package-list">
+                            <li>FOR 2 HOURS ONLY</li>
+                            <li>PAY FOR HOME DELIVERY</li>
+                            <li>ROAD SIDE ASSISTANCE</li>
+                            <li>INSURANCE INCLUDED</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- Single Pricing Table -->
+
+                <!-- Single Pricing Table -->
+                <div class="col-lg-6 col-md-6 text-center">
+                    <div class="single-pricing-table">
+                        <h3>Standard</h3>
+                        <h2>VEHICLE PRICE</h2>
+                        <h5>First 20 KMS</h5>
+
+                        <ul class="package-list">
+                            <li>PLAN YOUR TIME</li>
+                            <li>HOME DELIVERY*</li>
+                            <li>ROAD SIDE ASSISTANCE</li>
+                            <li>INSURANCE INCLUDED</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- Single Pricing Table -->
+            </div>
+            <!-- Pricing Table Conatent End -->
+        </div>
+    </section>
+    <!--== Pricing Area End ==-->
+
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block jquery %}
+
+<!--script>
+
+
+    $(function () {
+    $('#start_date,#end_date').datetimepicker({
+        sideBySide: true,
+        format:"YYYY-MM-DD HH:mm:ss",
+        stepping : 15
+    });
+});
+</script-->
+{% if slide %}
+<script>
+    $(document).ready(function(){
+        $('html, body').animate({
+        scrollTop: $('#slide').offset().top },'slow');
+    });
+</script>
+{% endif %}
+<script type="text/javascript">
+
+    $("#close-s").click(function(){
+    document.getElementById("cancel-s").value = "";
+    })
+    $("#close-e").click(function(){
+    document.getElementById("cancel-e").value = "";
+    })
+
+    $(function () {
+        $('#start_date').datetimepicker({
+
+        sideBySide: true,
+        format:"YYYY-MM-DD HH:mm:ss",
+        stepping : 15,
+        minDate:new Date(),
+         });
+
+        $('#end_date').datetimepicker({
+
+        sideBySide: true,
+        format:"YYYY-MM-DD HH:mm:ss",
+        stepping : 15,
+        useCurrent: false, //Important! See issue #1075
+        });
+
+        $("#start_date").on("dp.change", function (e) {
+            $('#end_date').data("DateTimePicker").minDate(e.date);
+        });
+
+        $("#end_date").on("dp.change", function (e) {
+            $('#start_date').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+    {% endblock %}

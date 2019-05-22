@@ -1,0 +1,47 @@
+{% extends "admin_master.html" %}
+
+
+
+{% block admin %}
+
+{% endblock %}
+
+{% block adminside %}
+{% endblock %}
+
+
+{% block content %}
+		<!-- main content start-->
+    <div id="page-wrapper">
+        <div class="main-page">
+            <h2 class="title1">Dashboard</h2>
+            <div class="panel1 variations-panel">
+                <div class="panel-body mtn">
+                    <div class="col-adjust-10">
+                        <div class="row">
+                            <div class="col-xl-12 agileits-bnt">
+                            <ul class="bt-list btn-lg" >
+                                <li><a href="/" class="hvr-icon-fade col-1" >Home</a></li>
+                                <li><a href="/update" class="hvr-icon-drop col-7">Update Profile </a></li>
+                                <li><a href="#" class="hvr-icon-buzz-out col-6">Bookings</a></li>
+                                <li><a href="/superuser/vehicle_category" class="hvr-icon-pulse col-11">Add Category</a></li>
+                                <li><a href="/superuser/vehicle_company" class="hvr-icon-up col-2">Add Company</a></li>
+                                <li><a href="/superuser/vehicle_details" class="hvr-icon-up col-3">Add Vehicle</a></li>
+                                <li><a href="{% url "adminapp:showdata" %}" class="hvr-icon-down col-4" >Show Vehicles</a></li>
+                                <li><a href="{% url "adminapp:queries" %}" class="hvr-icon-pop col-15">Queries</a></li>
+                                <li><a href="/changepassword" class="hvr-icon-fade col-5">Change Password</a></li>
+                                <li><a type="button" class="btn btn-primary btn-flat btn-pri btn-lg"> Primary<i class="fa fa-plus" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+		
+	<!-- new added graphs chart js-->
+
+
+{% endblock %}
